@@ -44,7 +44,7 @@ This repository contains a set of scripts used for deploying a Runic Realms game
 - `install.sh`: Runs everything one after the other
 - `install-plugins.sh`: Downloads artifacts from GitHub with provided credentials and artifact ID, unzips them into the plugins folder
 - `install-writer-files.sh`: Downloads the writer-files from GitHub with provided credentials
-- `process-writer-files.py: Reads a special file within the downloaded writer-files called `file-mappings.yml`, which indicates how the writer-files should be spread throughout the image.
+- `process-writer-files.py`: Reads a special file within the downloaded writer-files called `file-mappings.yml`, which indicates how the writer-files should be spread throughout the image.
 	- This file mappings configuration can contain information like needing to unzip the MythicMobs spawners file, and where each GitHub folder belongs locally (GitHub's `loot` directory needs to go to `plugins/RunicCore/loot`)
 		- This mapping is static, but some files such as the spawner zip, NPCs and more are uploaded with the `/filepush` command on writer that syncs all locally modified files (basically files that writers do not modify through GitHub but through commands), with the GitHub remote.
 - `install-build.sh`: Unzips the locally specified build artifact into the server directory
