@@ -1,0 +1,66 @@
+configurations:
+  server-properties:
+    file: server.properties
+    actions:
+    - type: edit
+      format:
+        type: basic
+        delimiter: "="
+      set:
+        max-players: 10
+        whitelist: true
+        motd: Runic Realms Official Dev Server
+        view-distance: 8
+        server-port: 25568
+  runic-database:
+    file: plugins/RunicDatabase/config.yml
+    actions:
+    - type: edit
+      format:
+        type: yml
+      set:
+        database: dev
+  runic-restart:
+    file: plugins/RunicRestart/config.yml
+    actions:
+    - type: edit
+      format:
+        type: yml
+      set:
+        restart-buffer: 300
+  runic-filepull-config:
+    file: plugins/RunicFilePull/config.yml
+    actions:
+    - type: edit
+      format:
+        type: yml
+      set:
+        automatic-sync:
+          enabled: false
+          port: -1
+  runic-core:
+    file: plugins/RunicCore/config.yml
+    actions:
+    - type: edit
+      format:
+        type: yml
+      set:
+        server-slots: 10
+  whitelist:
+    file: whitelist.json
+    actions:
+    - type: replace
+      target: ./whitelist-live.json
+  ops:
+    file: ops.json
+    actions:
+    - type: replace
+      target: ./ops-live.json
+  luckperms:
+    file: plugins/LuckPerms/config.yml
+    actions:
+    - type: edit
+      format:
+        type: yml
+      set:
+        server: dev

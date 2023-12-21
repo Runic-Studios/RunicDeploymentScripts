@@ -18,7 +18,7 @@ if [ ! -d "$COPY_BASE_PATH" ]; then
     exit 1
 fi
 
-echo "Unzipping Builds..."
+echo "Unzipping Builds at $BUILD_ZIP..."
 
 # Unzip
 unzip -q $BUILD_ZIP -d $COPY_BASE_PATH
