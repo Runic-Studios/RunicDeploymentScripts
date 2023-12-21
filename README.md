@@ -78,7 +78,7 @@ configurations: # List of all of the files we are going to change
       format:
         type: yml # Edit as a YML file
       set:
-	    database: play # Change YML value
+        database: play # Change YML value
   ops:
     file: ops.json
     actions:
