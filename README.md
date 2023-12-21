@@ -26,17 +26,15 @@ This repository contains a set of scripts used for deploying a Runic Realms game
 - `install.conf`: The most important file. Here you modify a variety of different configuration files necessary for the install.sh script:
 	- `WRITER_GITHUB_PATH`: This should be unchanging and set to `RunicRealmsGithub/writer-files`, just indicates which GitHub repository to look for
 	- `WRITER_GITHUB_BRANCH`: Set it to the name of the branch that we want to download writer files from
-	- `WRITER_GITHUB_USERNAME`: The name of the user that is going to be <i>accessing</i> this repository through GitHub's API. The secret token in secrets.conf must correspond to this user.
-	- `WRITER_BASE_PATH`: This should be an unchanging `..`, it just indicates where to load the `file-mappings.yml` of the writer-files into (which will be the parent directory of the scripts directory, which is the server base directory)
 	- `PLUGINS_GITHUB_PATH`: This should be an unchanging `Runic-Studios/RunicRealms`, which is the superproject from which we download the artifacts of our plugins
 	- `PLUGINS_GITHUB_ARTIFACT_ID`: This is obtained by going to `Runic-Studios/RunicRealms`, clicking on `Actions`, selecting the workflow with the correct plugin version on it, going to the most recent workflow run (or whichever one we want to download plugins from), right clicking the `plugins-zip` artifact at the bottom of the page, hitting "Copy Link Address", and the from that address, copying only the last number at the end (the Artifact ID)
 	- `BUILD_ARTIFACT_DIR`: This should be an unchanging `/home/mch/multicraft/build-artifacts` as that is the target of the `RunicBuildServer` plugin's `/export` command.
 	- `BUILD_ARTIFACT_TARGET`: This should be the name of the build artifact that we want to target. When you create an export on the build server with `/export`, you will also have given it a "tag" (aka a name). This tag is what you use here.
-	- `BUILD_BASE_PATH`: This should be an unchanging `..`, it just indicates where to load the build artifact into.
 	- `INSTANCE_CONF`: Set this to the instance template we want to load. For example, the live instance template might be `instance-conf/live-instance.yml`.
 
 - `secrets.conf`: This file is not uploaded to GitHub to keep our API tokens a secret. But it contains two keys:
 	- `WRITER_GITHUB_PAT`: The personal access token belonging to @RunicRealmsGithub for accessing its own `writer-files` repository. This is the same one as that which is used for File Pull.
+	- `WRITER_GITHUB_USERNAME`: The name of the user that is going to be <i>accessing</i> this repository through GitHub's API. The secret token in secrets.conf must correspond to this user.
 	- `PLUGINS_GITHUB_ARTIFACT_PAT`: This is also owned by @RunicRealmsGithub but contains access only for reading artifacts in the `Runic-Studios/RunicRealms` superproject.
 		- Because this uses the newer GitHub PAT system, this will expire in December 2024 and need to be regenerated.
 
