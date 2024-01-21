@@ -63,4 +63,4 @@ configurations:
       format:
         type: yml
       set:
-        server: play
+        server: live
