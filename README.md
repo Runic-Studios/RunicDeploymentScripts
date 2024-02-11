@@ -28,8 +28,9 @@ This repository contains a set of scripts used for deploying a Runic Realms game
 
 ### Configuration:
 - `install.conf`: The most important file. Here you modify a variety of different configuration files necessary for the install.sh script:
-	- `WRITER_GITHUB_PATH`: This should be unchanging and set to `RunicRealmsGithub/writer-files`, just indicates which GitHub repository to look for
-	- `WRITER_GITHUB_BRANCH`: Set it to the name of the branch that we want to download writer files from
+	- `CONFIG_GITHUB_PATH`: This should be unchanging and set to `RunicRealmsGithub/writer-files-config`, just indicates which GitHub repository to look for file mappings configurations (these are instructions about how to download writer files)
+	- `CONFIG_GITHUB_BRANCH`: The branch of `CONFIG_GITHUB_PATH` to target, should be unchanging and set to `main`.
+  	- `CONFIG_GITHUB_FILEPATH`: You may need to change this, it specifies which file to look for in the `CONFIG_GITHUB_PATH` repository's file mappings. The difference between files should include a different `repo.branch` key, this is the branch of the `writer-files` repo that will be downloaded.
 	- `PLUGINS_GITHUB_PATH`: This should be an unchanging `Runic-Studios/RunicRealms`, which is the superproject from which we download the artifacts of our plugins
 	- `PLUGINS_GITHUB_ARTIFACT_ID`: This is obtained by going to `Runic-Studios/RunicRealms`, clicking on `Actions`, selecting the workflow with the correct plugin version on it, going to the most recent workflow run (or whichever one we want to download plugins from), right clicking the `plugins-zip` artifact at the bottom of the page, hitting "Copy Link Address", and the from that address, copying only the last number at the end (the Artifact ID)
 	- `BUILD_ARTIFACT_DIR`: This should be an unchanging `/home/mch/multicraft/build-artifacts` as that is the target of the `RunicBuildServer` plugin's `/export` command.
@@ -37,16 +38,16 @@ This repository contains a set of scripts used for deploying a Runic Realms game
 	- `INSTANCE_CONF`: Set this to the instance template we want to load. For example, the live instance template might be `instance-conf/live-instance.yml`.
 
 - `secrets.conf`: This file is not uploaded to GitHub to keep our API tokens a secret. But it contains two keys:
-	- `WRITER_GITHUB_PAT`: The personal access token belonging to @RunicRealmsGithub for accessing its own `writer-files` repository. This is the same one as that which is used for File Pull.
-	- `WRITER_GITHUB_USERNAME`: The name of the user that is going to be <i>accessing</i> this repository through GitHub's API. The secret token in secrets.conf must correspond to this user.
+	- `CONFIG_GITHUB_PAT`: The personal access token belonging to @RunicRealmsGithub for accessing its own `writer-files-config` repository. This is the same one as that which is used for File Pull. <b>This must also have access to the subsequent `writer-files` repository mentioned in the `file-mappings-VERSION.yml` of `writer-files-config`</b>.
+	- `CONFIG_GITHUB_USERNAME`: The name of the user that is going to be <i>accessing</i> this repository through GitHub's API. The secret token in secrets.conf must correspond to this user. <b>This must also have access to the subsequent `writer-files` repository mentioned in the `file-mappings-VERSION.yml` of `writer-files-config`</b>.
 	- `PLUGINS_GITHUB_ARTIFACT_PAT`: This is also owned by @RunicRealmsGithub but contains access only for reading artifacts in the `Runic-Studios/RunicRealms` superproject.
 		- Because this uses the newer GitHub PAT system, this will expire in December 2024 and need to be regenerated.
 
 ### Executables:
 - `install.sh`: Runs everything one after the other
 - `install-plugins.sh`: Downloads artifacts from GitHub with provided credentials and artifact ID, unzips them into the plugins folder
-- `install-writer-files.sh`: Downloads the writer-files from GitHub with provided credentials
-- `process-writer-files.py`: Reads a special file within the downloaded writer-files called `file-mappings.yml`, which indicates how the writer-files should be spread throughout the image.
+- `install-writer-files.sh`: Downloads the writer-files-config from GitHub with provided credentials
+- `process-writer-files.py`: Reads a special file within the downloaded writer-files-config called `file-mappings-VERSION.yml`, which indicates how the writer-files should be downloaded and spread throughout the image.
 	- This file mappings configuration can contain information like needing to unzip the MythicMobs spawners file, and where each GitHub folder belongs locally (GitHub's `loot` directory needs to go to `plugins/RunicCore/loot`)
 		- This mapping is static, but some files such as the spawner zip, NPCs and more are uploaded with the `/filepush` command on writer that syncs all locally modified files (basically files that writers do not modify through GitHub but through commands), with the GitHub remote.
 - `install-build.sh`: Unzips the locally specified build artifact into the server directory
