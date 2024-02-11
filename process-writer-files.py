@@ -4,29 +4,26 @@ import sys
 import yaml
 import zipfile
 
-def main(repo_base_path, copy_base_path):
+def main(repo_base_path, copy_base_path, mappings_file_location):
     try:
-        mappings_file = os.path.join(repo_base_path, 'file-mappings.yml')
+        mappings_file = os.path.join(repo_base_path, mappings_file_location)
         with open(mappings_file, 'r') as file:
             mappings = yaml.safe_load(file)
 
-        # Process single files
-        for key, paths in mappings.get('single-files', {}).items():
-            github_path = os.path.join(repo_base_path, paths['github'])
-            local_path = os.path.join(copy_base_path, paths['local'])
-            process_single_file(github_path, local_path)
-
-        # Process zipped files
-        for key, paths in mappings.get('zipped-files', {}).items():
-            github_path = os.path.join(repo_base_path, paths['github'])
-            local_path = os.path.join(copy_base_path, paths['local'])
-            process_zipped_file(github_path, local_path)
-
-        # Process folders
-        for key, paths in mappings.get('folders', {}).items():
-            github_path = os.path.join(repo_base_path, paths['github'])
-            local_path = os.path.join(copy_base_path, paths['local'])
-            process_folder(github_path, local_path)
+        for key, paths in mappings.get('targets', {}).items():
+            type = paths['type']
+            if type == 'folder':
+                github_path = os.path.join(repo_base_path, paths['github'])
+                local_path = os.path.join(copy_base_path, paths['local'])
+                process_folder(github_path, local_path)
+            elif type == 'file':
+                github_path = os.path.join(repo_base_path, paths['github'])
+                local_path = os.path.join(copy_base_path, paths['local'])
+                process_single_file(github_path, local_path)
+            elif type == 'zip':
+                github_path = os.path.join(repo_base_path, paths['github'])
+                local_path = os.path.join(copy_base_path, paths['local'])
+                process_zipped_file(github_path, local_path)
 
     except Exception as e:
         print(f"Error: {e}")
@@ -48,10 +45,11 @@ def process_folder(github_path, local_path):
         shutil.copy(os.path.join(github_path, filename), local_path)
 
 if __name__ == "__main__":
-    if len(sys.argv) != 3:
-        print("Usage: python3 install-writer-files.py <repo_base_path> <copy_base_path>")
+    if len(sys.argv) != 4:
+        print("Usage: python3 install-writer-files.py <repo_base_path> <copy_base_path> <mappings_file_location>")
         exit(1)
 
     repo_base_path = sys.argv[1]
     copy_base_path = sys.argv[2]
-    main(repo_base_path, copy_base_path)
+    mappings_file_location = sys.argv[3]
+    main(repo_base_path, copy_base_path, mappings_file_location)

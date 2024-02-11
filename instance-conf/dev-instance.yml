@@ -7,11 +7,11 @@ configurations:
         type: basic
         delimiter: "="
       set:
-        max-players: 50
-        whitelist: false
-        motd: Runic Realms Official Live Server
+        max-players: 10
+        whitelist: true
+        motd: Runic Realms Official Dev Server
         view-distance: 8
-        server-port: 25565
+        server-port: 25568
   runic-database:
     file: plugins/RunicDatabase/config.yml
     actions:
@@ -19,7 +19,7 @@ configurations:
       format:
         type: yml
       set:
-        database: play
+        database: dev
   runic-restart:
     file: plugins/RunicRestart/config.yml
     actions:
@@ -45,7 +45,7 @@ configurations:
       format:
         type: yml
       set:
-        server-slots: 50
+        server-slots: 10
   whitelist:
     file: whitelist.json
     actions:
@@ -63,4 +63,4 @@ configurations:
       format:
         type: yml
       set:
-        server: live
+        server: dev

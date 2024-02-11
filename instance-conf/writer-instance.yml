@@ -7,11 +7,11 @@ configurations:
         type: basic
         delimiter: "="
       set:
-        max-players: 50
-        whitelist: false
-        motd: Runic Realms Official Live Server
+        max-players: 10
+        whitelist: true
+        motd: Runic Realms Official Writer Server
         view-distance: 8
-        server-port: 25565
+        server-port: 25566
   runic-database:
     file: plugins/RunicDatabase/config.yml
     actions:
@@ -19,7 +19,7 @@ configurations:
       format:
         type: yml
       set:
-        database: play
+        database: writer
   runic-restart:
     file: plugins/RunicRestart/config.yml
     actions:
@@ -36,8 +36,8 @@ configurations:
         type: yml
       set:
         automatic-sync:
-          enabled: false
-          port: -1
+          enabled: true
+          port: 25570
   runic-core:
     file: plugins/RunicCore/config.yml
     actions:
@@ -45,17 +45,17 @@ configurations:
       format:
         type: yml
       set:
-        server-slots: 50
+        server-slots: 10
   whitelist:
     file: whitelist.json
     actions:
     - type: replace
-      target: ./whitelist-live.json
+      target: ./whitelist-writer.json
   ops:
     file: ops.json
     actions:
     - type: replace
-      target: ./ops-live.json
+      target: ./ops-writer.json
   luckperms:
     file: plugins/LuckPerms/config.yml
     actions:
@@ -63,4 +63,4 @@ configurations:
       format:
         type: yml
       set:
-        server: live
+        server: writer

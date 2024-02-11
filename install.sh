@@ -1,5 +1,13 @@
 #!/bin/bash
 
+# Check if all arguments are provided
+if [ "$#" -ne 1 ]; then
+    echo "Usage: $0 <Server Dir>"
+    exit 1
+fi
+
+SERVER_DIR="$1"
+
 ### CD INTO SCRIPT DIR
 echo "Entering Script Directory ${0%/*}"
 
@@ -51,20 +59,19 @@ echo
 ### INSTALL
 # These have their own prints
 
-./install-plugins.sh $PLUGINS_GITHUB_PATH $PLUGINS_GITHUB_ARTIFACT_PAT $PLUGINS_GITHUB_ARTIFACT_ID $PLUGINS_LOCAL_FOLDER
+./install-plugins.sh $PLUGINS_GITHUB_PATH $PLUGINS_GITHUB_ARTIFACT_PAT $PLUGINS_GITHUB_ARTIFACT_ID "$SERVER_DIR/plugins"
 
-./install-writer-files.sh $WRITER_GITHUB_PATH $WRITER_GITHUB_BRANCH $WRITER_GITHUB_USERNAME $WRITER_GITHUB_PAT $WRITER_BASE_PATH
+./install-writer-files.sh $WRITER_GITHUB_PATH $WRITER_GITHUB_BRANCH $WRITER_GITHUB_USERNAME $WRITER_GITHUB_PAT $SERVER_DIR $CONFIG_GITHUB_PATH $CONFIG_GITHUB_BRANCH $CONFIG_GITHUB_FILEPATH
 
-./install-build.sh "$BUILD_ARTIFACT_DIR/$BUILD_ARTIFACT_TARGET.zip" $BUILD_BASE_PATH
+./install-build.sh "$BUILD_ARTIFACT_DIR/$BUILD_ARTIFACT_TARGET.zip" $SERVER_DIR
 
 echo
 
 ### MODIFY SERVER VALUES
 echo "Loading config values from $INSTANCE_CONF"
 
-python3 conf-parse.py $INSTANCE_CONF ..
+python3 conf-parse.py $INSTANCE_CONF $SERVER_DIR
 echo
-
 
 
 echo "Done!"
