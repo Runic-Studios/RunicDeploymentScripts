@@ -16,8 +16,12 @@ This repository contains a set of scripts used for deploying a Runic Realms game
 	- This file could indicate for example, that we need to modify the `RunicDatabase/config.yml`  database key to point to the `live` Mongo Database for live servers. A different instance template for writer servers would contain different information.
 
 ## Prerequisites
-- Python 3 and Pip
-- Bash interpreter at `/bin/bash`
+-  `sudo apt-get update`
+-  Install jq `sudo apt-get install jq`
+-  Install yq `sudo add-apt-repository ppa:rmescandon/yq`
+-  Install python3 `sudo apt-get install python3`
+-  Install pip `sudo apt-get install pip`
+-  Bash interpreter at `/bin/bash`
 - `pip install ruamel.yaml`
 
 ## Scripts
