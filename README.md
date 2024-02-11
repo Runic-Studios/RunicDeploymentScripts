@@ -18,7 +18,7 @@ This repository contains a set of scripts used for deploying a Runic Realms game
 ## Prerequisites
 -  `sudo apt-get update`
 -  Install jq `sudo apt-get install jq`
--  Install yq `sudo add-apt-repository ppa:rmescandon/yq`
+-  Install yq `sudo add-apt-repository ppa:rmescandon/yq` then `sudo apt install yq -y`
 -  Install python3 `sudo apt-get install python3`
 -  Install pip `sudo apt-get install pip`
 -  Bash interpreter at `/bin/bash`
