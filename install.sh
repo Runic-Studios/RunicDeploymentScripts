@@ -17,6 +17,9 @@ echo
 
 ### LOAD CONFIGURATION
 
+# Key value pairs that we use for conf-parse.py
+KVP=""
+
 # Function to load key-value pairs from a file
 load_config() {
     local config_file="$1"
@@ -36,6 +39,7 @@ load_config() {
 
         # Export the key-value pair as a variable
         export "$key=$value"
+        KVP+="$key=$value,"
         if [ $# -eq 1 ]; then
             echo "Loaded $key=$value"
         else
@@ -70,7 +74,7 @@ echo
 ### MODIFY SERVER VALUES
 echo "Loading config values from $INSTANCE_CONF"
 
-python3 conf-parse.py $INSTANCE_CONF $SERVER_DIR
+python3 conf-parse.py $INSTANCE_CONF $SERVER_DIR $KVP
 echo
 
 

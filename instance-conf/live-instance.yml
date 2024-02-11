@@ -38,6 +38,12 @@ configurations:
         automatic-sync:
           enabled: false
           port: -1
+        api-token: '$CONFIG_GITHUB_PAT'
+        config:
+          file-path: '$CONFIG_GITHUB_FILEPATH'
+          repo:
+            path: '$CONFIG_GITHUB_PATH'
+            branch: '$CONFIG_GITHUB_BRANCH'
   runic-core:
     file: plugins/RunicCore/config.yml
     actions:
